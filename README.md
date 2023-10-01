@@ -8,13 +8,13 @@ Layout for assignment came from starter file.
 Specific sections using sources listed below:
 
 --------------------------------------------------
-Setup
+Setup (Climate_Analysis)
 --------------------------------------------------
 
 Dependency imports provided in starter file.
 
 --------------------------------------------------
-Exploratory Precipitation Analysis
+Exploratory Precipitation Analysis (Climate_Analysis)
 --------------------------------------------------
 
 The following section:
@@ -36,7 +36,7 @@ Used format provided in week 10, day 3, activity 02-Ins_Dates:
     session.query(Dow.date).order_by(Dow.date.desc()).first()
 
 --------------------------------------------------
-Exploratory Station Analysis
+Exploratory Station Analysis (Climate_Analysis)
 --------------------------------------------------
 
 The following section:
@@ -57,3 +57,8 @@ Used format provided in week 10, day 3, activity 02-Ins_Dates:
 
     session.query(Dow.date).order_by(Dow.date.desc()).first()
 
+
+
+--------------------------------------------------
+Setup *
+--------------------------------------------------
