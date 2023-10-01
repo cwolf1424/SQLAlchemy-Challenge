@@ -35,3 +35,25 @@ Used format provided in week 10, day 3, activity 02-Ins_Dates:
 
     session.query(Dow.date).order_by(Dow.date.desc()).first()
 
+--------------------------------------------------
+Exploratory Station Analysis
+--------------------------------------------------
+
+The following section:
+
+    stations_activity = session.query(measurements.station, func.count(measurements.station)).group_by(measurements.station).order_by(func.count(measurements.station).desc()).all()
+
+
+Used format explained by Liang from the AskBCS team:
+
+    .query(col, func.count(col)).group_by(col)
+
+
+The following section:
+
+    USC00519281_latest_date = session.query(measurements.date).filter_by(station = 'USC00519281').order_by(measurements.date.desc()).first()
+
+Used format provided in week 10, day 3, activity 02-Ins_Dates:
+
+    session.query(Dow.date).order_by(Dow.date.desc()).first()
+
