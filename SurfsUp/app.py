@@ -3,6 +3,9 @@
 # Import Flask
 from flask import Flask, jsonify
 
+#Import Datetime
+import datetime as dt
+
 # Python SQL toolkit and Object Relational Mapper
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -61,11 +64,26 @@ def home():
 # Percipitation Data
 @app.route("/api/v1.0/precipitation")
 def precipitation():
-    return f'Nothing here yet!'
+    mm_latest_yr = session.query( measurements.date, measurements.prcp).filter(measurements.date > (dt.date(2016, 8, 23))).all()
+    entries = []
+    for row in mm_latest_yr:
+        entry = {}
+        entry["Date"] = row.date
+        entry["Percipitation (Inches)"] = row.prcp
+        entries.append(entry)
+    return (jsonify(entries))
+
 # Station Data
 @app.route("/api/v1.0/stations")
 def stations():
-    return f'Nothing here yet!'
+    station_count = session.query(measurements.station).distinct()
+    entries = []
+    for row in station_count:
+        entry = {}
+        entry["Station"] = row.station
+        entries.append(entry)
+    return (jsonify(entries))
+
 # Temperature Data
 @app.route("/api/v1.0/tobs")
 def tobs():
