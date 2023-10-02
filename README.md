@@ -60,5 +60,16 @@ Used format provided in week 10, day 3, activity 02-Ins_Dates:
 
 
 --------------------------------------------------
-Setup *
+App.py
 --------------------------------------------------
+
+In setup, much of the code from the first part of the assignment was re-used.
+
+This section also used code provided in climate_starter file:
+
+    # Python SQL toolkit and Object Relational Mapper
+    import sqlalchemy
+    from sqlalchemy.ext.automap import automap_base
+    from sqlalchemy.orm import Session
+    from sqlalchemy import create_engine, func, inspect
+
