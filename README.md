@@ -73,3 +73,28 @@ This section also used code provided in climate_starter file:
     from sqlalchemy.orm import Session
     from sqlalchemy import create_engine, func, inspect
 
+In the flask routes sections, I used much of the code from the first part of the assignment.
+
+I was also using some of the formatting from the following section provided by my professor, 
+Benjamin Alford in class from his app.py from week 10, day 3, which he shared under 
+06-Ins_Jsonify's "Unsolved" folder 
+
+    @app.route("/api/mammal/status/<status>/<some_species>")
+    def hoobstank4(status, some_species):
+        # create the session
+        session = Session(engine)
+        # read the data
+        data = session.query(NA).filter(NA.status == status).filter(
+            NA.species == some_species).all()
+        species = []
+        # transform the data
+        for item in data:
+            animal = {}
+            animal["species"] = item.species
+            animal["status"] = item.status
+            animal["order"] = item.order
+            animal["family"] = item.family
+            animal["genus"] = item.genus
+            species.append(animal)
+        # return the data
+        return jsonify(species)
