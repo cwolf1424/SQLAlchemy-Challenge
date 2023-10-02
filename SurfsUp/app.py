@@ -1,6 +1,6 @@
 # Import the dependencies.
 
-# Flask
+# Import Flask
 from flask import Flask, jsonify
 
 # Python SQL toolkit and Object Relational Mapper
@@ -33,9 +33,53 @@ session = Session(bind=engine)
 # Flask Setup
 #################################################
 
-
+app = Flask(__name__)
 
 
 #################################################
 # Flask Routes
 #################################################
+
+#Start at the homepage.
+@app.route("/")
+def home():
+    #List all the available routes.
+    return f'Welcome to the Hawaii Weather API!\
+        <br>---------------------------------------------------\
+        <br><br> Available routes:\
+        <br><br> Precipitation Data:\
+        <br> /api/v1.0/precipitation\
+        <br><br>Station Data:\
+        <br> /api/v1.0/stations\
+        <br><br>Temperature Data:\
+        <br> /api/v1.0/tobs\
+        <br><br>Temerature Min, Max, and Avg From Selected Dates:\
+        <br> /api/v1.0/start_date\
+        <br> /api/v1.0/start_date/end_date'
+
+
+# Percipitation Data
+@app.route("/api/v1.0/precipitation")
+def precipitation():
+    return f'Nothing here yet!'
+# Station Data
+@app.route("/api/v1.0/stations")
+def stations():
+    return f'Nothing here yet!'
+# Temperature Data
+@app.route("/api/v1.0/tobs")
+def tobs():
+    return f'Nothing here yet!'
+# Temerature Min, Max, and Avg From Start Date
+@app.route("/api/v1.0/start_date")
+def from_date():
+    return f'Nothing here yet!'
+# Temerature Min, Max, and Avg From Start and End Dates
+@app.route("/api/v1.0/start_date/end_date")
+def from_to_date():
+    return f'Nothing here yet!'
+
+session.close()
+
+if __name__ == "__main__":
+    app.run(debug=True)
