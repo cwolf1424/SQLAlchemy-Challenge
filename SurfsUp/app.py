@@ -102,14 +102,25 @@ def tobs():
 # Temerature Min, Max, and Avg From Start Date
 @app.route("/api/v1.0/start_date")
 def from_date():
-    return f'Nothing here yet!'
+    USC00519281_stats = session.query(func.min(measurements.tobs), func.max(measurements.tobs),func.avg(measurements.tobs))\
+        .filter_by(station = 'USC00519281').all()
+    entries = []
+    for row in USC00519281_stats:
+        entry = {}
+        entry["Minimum Temperatrue (F)"] = row[0]
+        entry["Maximum Temperatrue (F)"] = row[1]
+        entry["Average Temperatrue (F)"] = row[2]
+        entries.append(entry)
+    return (jsonify(entries))
 
 # Temerature Min, Max, and Avg From Start and End Dates
 @app.route("/api/v1.0/start_date/end_date")
-def from_to_date():
+def from_to_date(start_date, end_date):
     return f'Nothing here yet!'
 
+# Close Session
 session.close()
 
+# App run instructions
 if __name__ == "__main__":
     app.run(debug=True)
