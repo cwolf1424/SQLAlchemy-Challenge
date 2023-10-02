@@ -87,11 +87,23 @@ def stations():
 # Temperature Data
 @app.route("/api/v1.0/tobs")
 def tobs():
-    return f'Nothing here yet!'
+    USC00519281_last_yr = session.query(measurements.date, measurements.tobs)\
+        .filter(measurements.date > (dt.date(2016, 8, 18)))\
+        .filter_by(station="USC00519281")\
+        .order_by(measurements.date).all()
+    entries = []
+    for row in USC00519281_last_yr:
+        entry = {}
+        entry["Date"] = row.date
+        entry["Temperature (F)"] = row.tobs
+        entries.append(entry)
+    return (jsonify(entries))
+
 # Temerature Min, Max, and Avg From Start Date
 @app.route("/api/v1.0/start_date")
 def from_date():
     return f'Nothing here yet!'
+
 # Temerature Min, Max, and Avg From Start and End Dates
 @app.route("/api/v1.0/start_date/end_date")
 def from_to_date():
