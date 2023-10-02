@@ -56,7 +56,7 @@ def home():
         <br> /api/v1.0/stations\
         <br><br>Temperature Data:\
         <br> /api/v1.0/tobs\
-        <br><br>Temerature Min, Max, and Avg From Selected Dates:\
+        <br><br>Temerature Min, Max, and Avg From Selected Dates (Formatted yyyy, mm, dd):\
         <br> /api/v1.0/start_date\
         <br> /api/v1.0/start_date/end_date'
 
@@ -100,10 +100,11 @@ def tobs():
     return (jsonify(entries))
 
 # Temerature Min, Max, and Avg From Start Date
-@app.route("/api/v1.0/start_date")
-def from_date():
+@app.route("/api/v1.0/<start_date>")
+def from_date(start_date):
     USC00519281_stats = session.query(func.min(measurements.tobs), func.max(measurements.tobs),func.avg(measurements.tobs))\
-        .filter_by(station = 'USC00519281').all()
+        .filter_by(station = 'USC00519281')\
+        .filter(measurements.date > (start_date)).all()
     entries = []
     for row in USC00519281_stats:
         entry = {}
@@ -114,9 +115,20 @@ def from_date():
     return (jsonify(entries))
 
 # Temerature Min, Max, and Avg From Start and End Dates
-@app.route("/api/v1.0/start_date/end_date")
+@app.route("/api/v1.0/<start_date>/<end_date>")
 def from_to_date(start_date, end_date):
-    return f'Nothing here yet!'
+    USC00519281_stats = session.query(func.min(measurements.tobs), func.max(measurements.tobs),func.avg(measurements.tobs))\
+        .filter_by(station = 'USC00519281')\
+        .filter(measurements.date > (start_date))\
+        .filter(measurements.date < (end_date)).all()
+    entries = []
+    for row in USC00519281_stats:
+        entry = {}
+        entry["Minimum Temperatrue (F)"] = row[0]
+        entry["Maximum Temperatrue (F)"] = row[1]
+        entry["Average Temperatrue (F)"] = row[2]
+        entries.append(entry)
+    return (jsonify(entries))
 
 # Close Session
 session.close()
